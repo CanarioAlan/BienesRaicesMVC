@@ -11,8 +11,12 @@ use Controllers\PropiedadController;
 
 $router = new Router();
 // se llama al metodo get del router para registrar una nueva ruta y se pasa la url y la funcion que se ejecutara esta esta asociada a un controlador
-$router->get('/admin', [PropiedadController::class, "index"]);
-$router->get('/propiedades/crear', 'funcion_crear');
-$router->get('/propiedades/actualizar', 'funcion_actualizar');
+$router->get('/admin', [PropiedadController::class, 'index']);
+$router->get('/propiedades/crear', [PropiedadController::class, 'crear']);
+$router->get('/propiedades/actualizar', [PropiedadController::class, 'actualizar']);
+//registramos la ruta post para crear una nueva propiedad y darle soporte al metodo post
+$router->post('/propiedades/crear', [PropiedadController::class, 'crear']);
+$router->post('/propiedades/actualizar', [PropiedadController::class, 'actualizar']);
+$router->post('/propiedades/eliminar', [PropiedadController::class, 'eliminar']);
 //definimos las rutas de la aplicacion
 $router->comprobarRutas();
