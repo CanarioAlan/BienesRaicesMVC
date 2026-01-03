@@ -1,0 +1,20 @@
+{
+  "name": "chino/bienesraices_inicio",
+  "type": "proyecto",
+  "authors": [
+    {
+      "name": "Canario Alan",
+      "email": "alan.union.1998@gmail.com"
+    }
+  ],
+  "require": {
+    "intervention/image": "^3.11"
+  },
+  "autoload": {
+    "psr-4": {
+      "Model\\": "./models",
+      "MVC\\": "./",
+      "Controllers\\": "./controllers"
+    }
+  }
+}
