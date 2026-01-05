@@ -5,6 +5,8 @@ namespace Controllers;
 use MVC\Router;
 use Model\Propiedad;
 use Model\Vendedor;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager as Image;
 //creamos al controlador de propiedades
 class PropiedadController
 {
@@ -14,7 +16,7 @@ class PropiedadController
     {
         //del modelo propiedad traemos todas las propiedades
         $propiedades = Propiedad::all();
-        $resultado = Null;
+        $resultado = $_GET['resultado'] ?? null;
         //llamamos al metodo render del router para mostrar la vista y le pasamos el nombre de la vista
         $router->render('propiedades/admin', [
             //pasamos un arreglo asociativo con los datos que queremos enviar a la vista
@@ -26,14 +28,32 @@ class PropiedadController
     {
         $propiedad = new Propiedad;
         $vendedores = Vendedor::all();
+        $errores = Propiedad::getErrores();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            debugear("hola");
+            $propiedad = new Propiedad($_POST['propiedad']);
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+            if ($_FILES['propiedad']['tmp_name']['imagen']) {
+                $manager = new Image(Driver::class);
+                $image = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
+                $propiedad->setImagen($nombreImagen);
+            }
+            // debugear(CARPETA_IMAGENES);
+            $errores = $propiedad->validar();
+            if (empty($errores)) {
+                if (!is_dir(CARPETA_IMAGENES)) {
+                    mkdir(CARPETA_IMAGENES);
+                }
+                $image->save(CARPETA_IMAGENES . $nombreImagen);
+                $propiedad->guardar();
+            }
         }
         $router->render('propiedades/crear', [
             'propiedad' => $propiedad,
-            'vendedores' => $vendedores
+            'vendedores' => $vendedores,
+            'errores' => $errores
         ]);
     }
+
     public static function actualizar(Router $router)
     {
         echo "actualizar";

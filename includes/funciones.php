@@ -2,7 +2,7 @@
 define('TEMPLATE_URL', __DIR__ . '/templates');
 define('FUNCIONES_URL', __DIR__ . 'funciones.php');
 //cremaos nuetra propio super global para las imagenes
-define('CARPETA_IMAGENES', __DIR__ . '/../imagenes/');
+define('CARPETA_IMAGENES', $_SERVER['DOCUMENT_ROOT'] . '/imagenes/');
 
 // creamos una función para incluir templates con parámetros opcionales 
 function incluirTemplate(string $nombre, bool $inicio = false)
