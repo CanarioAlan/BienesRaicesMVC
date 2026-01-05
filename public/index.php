@@ -8,6 +8,8 @@ require_once __DIR__ . '/../includes/app.php';
 use MVC\Router;
 //importamos los controladores que usaremos
 use Controllers\PropiedadController;
+use Controllers\VendedorController;
+use Controllers\PaginasController;
 
 $router = new Router();
 // se llama al metodo get del router para registrar una nueva ruta y se pasa la url y la funcion que se ejecutara esta esta asociada a un controlador
@@ -18,5 +20,14 @@ $router->get('/propiedades/actualizar', [PropiedadController::class, 'actualizar
 $router->post('/propiedades/crear', [PropiedadController::class, 'crear']);
 $router->post('/propiedades/actualizar', [PropiedadController::class, 'actualizar']);
 $router->post('/propiedades/eliminar', [PropiedadController::class, 'eliminar']);
+// rutas para vendedores
+$router->get('/vendedores/crear', [VendedorController::class, 'crear']);
+$router->get('/vendedores/actualizar', [VendedorController::class, 'actualizar']);
+$router->post('/vendedores/crear', [VendedorController::class, 'crear']);
+$router->post('/vendedores/actualizar', [VendedorController::class, 'actualizar']);
+$router->post('/vendedores/eliminar', [VendedorController::class, 'eliminar']);
+
+
+
 //definimos las rutas de la aplicacion
 $router->comprobarRutas();

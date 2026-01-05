@@ -16,12 +16,14 @@ class PropiedadController
     {
         //del modelo propiedad traemos todas las propiedades
         $propiedades = Propiedad::all();
+        $vendedores = Vendedor::All();
         $resultado = $_GET['resultado'] ?? null;
         //llamamos al metodo render del router para mostrar la vista y le pasamos el nombre de la vista
         $router->render('propiedades/admin', [
             //pasamos un arreglo asociativo con los datos que queremos enviar a la vista
             "propiedades" => $propiedades,
             "resultado" => $resultado,
+            "vendedores" => $vendedores
         ]);
     }
     public static function crear(Router $router)
