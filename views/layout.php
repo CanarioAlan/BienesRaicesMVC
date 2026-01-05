@@ -32,15 +32,15 @@ if (!isset($inicio)) {
                 <div class="derecha">
                     <img class="dark-mode-boton" src="/build/img/dark-mode.svg" alt="icono de dark mode">
                     <nav class="navegacion">
-                        <a href="Nosotros.php">Nosotros</a>
-                        <a href="Anuncios.php">Anuncios</a>
-                        <a href="Blog.php">Blog</a>
-                        <a href="Contacto.php">Contactos</a>
+                        <a href="/nosotros">Nosotros</a>
+                        <a href="/anuncios">Anuncios</a>
+                        <a href="/blog">Blog</a>
+                        <a href="/contacto">Contactos</a>
                         <!-- creamos un elemento validando si existe una sesion activa -->
                         <?php if ($auth) : ?>
                             <a href="cerrarSesion.php">Cerrar Sesión</a>
                         <?php else: ?>
-                            <a href="login.php">Iniciar Sesión</a>
+                            <a href="/iniciarSesion">Iniciar Sesión</a>
                         <?php endif; ?>
                     </nav>
                     <!-- cierra el div barra -->
@@ -53,10 +53,10 @@ if (!isset($inicio)) {
     <footer class="footer seccion">
         <div class="contenedor contenedor-footer">
             <nav class="navegacion">
-                <a href="Nosotros.php">Nosotros</a>
-                <a href="Anuncios.php">Anuncios</a>
-                <a href="Blog.php">Blog</a>
-                <a href="Contacto.php">Contactos</a>
+                <a href="/nosotros">Nosotros</a>
+                <a href="/anuncios">Anuncios</a>
+                <a href="/blog">Blog</a>
+                <a href="/contacto">Contactos</a>
             </nav>
             <p class="copyright">Todos los derechos Reservados <?php echo date('Y') ?> &copy;</p>
         </div>

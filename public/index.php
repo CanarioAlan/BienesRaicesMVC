@@ -27,7 +27,17 @@ $router->post('/vendedores/crear', [VendedorController::class, 'crear']);
 $router->post('/vendedores/actualizar', [VendedorController::class, 'actualizar']);
 $router->post('/vendedores/eliminar', [VendedorController::class, 'eliminar']);
 
-
+//rutas publicas
+$router->get('/', [PaginasController::class, 'index']);
+$router->get('/nosotros', [PaginasController::class, 'nosotros']);
+$router->get('/anuncios', [PaginasController::class, 'anuncios']);
+$router->get('/anuncio', [PaginasController::class, 'anuncio']);
+$router->get('/blog', [PaginasController::class, 'blog']);
+$router->get('/entrada', [PaginasController::class, 'entrada']);
+$router->get('/contacto', [PaginasController::class, 'contacto']);
+$router->get('/iniciarSesion', [PaginasController::class, 'iniciarSesion']);
+$router->post('/contacto', [PaginasController::class, 'contacto']);
+$router->post('/iniciarSesion', [PaginasController::class, 'iniciarSesion']);
 
 //definimos las rutas de la aplicacion
 $router->comprobarRutas();
