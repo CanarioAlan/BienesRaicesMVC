@@ -37,7 +37,6 @@ class PropiedadController
                 $image = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
                 $propiedad->setImagen($nombreImagen);
             }
-            // debugear(CARPETA_IMAGENES);
             $errores = $propiedad->validar();
             if (empty($errores)) {
                 if (!is_dir(CARPETA_IMAGENES)) {
@@ -56,6 +55,34 @@ class PropiedadController
 
     public static function actualizar(Router $router)
     {
-        echo "actualizar";
+        //creamos una funcion para validar el id y redireccionar en caso de no ser valido
+        //llamamos a la funcion validaRedireccionar y le pasamos la url a la que redireccionar en caso de no ser valido
+        $id = validaRedireccionar('/admin');
+        $propiedad = Propiedad::propFiltrada($id);
+        $vendedores = Vendedor::all();
+        $errores = Propiedad::getErrores();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $args = $_POST['propiedad'];
+            $propiedad->sincronizar($args);
+            $errores = $propiedad->validar();
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+            $imagen = null;
+            if ($_FILES['propiedad']['tmp_name']['imagen']) {
+                $manager = new Image(Driver::class);
+                $imagen = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
+                $propiedad->setImagen($nombreImagen);
+            }
+            if (empty($errores)) {
+                if ($_FILES['propiedad']['tmp_name']['imagen']) {
+                    $imagen->save(CARPETA_IMAGENES . $nombreImagen);
+                }
+                $propiedad->guardar();
+            }
+        }
+        $router->render('/propiedades/actualizar', [
+            "propiedad" => $propiedad,
+            'vendedores' => $vendedores,
+            "errores" => $errores
+        ]);
     }
 }
