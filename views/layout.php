@@ -38,9 +38,9 @@ if (!isset($inicio)) {
                         <a href="/contacto">Contactos</a>
                         <!-- creamos un elemento validando si existe una sesion activa -->
                         <?php if ($auth) : ?>
-                            <a href="cerrarSesion.php">Cerrar Sesión</a>
+                            <a href="/logout">Cerrar Sesión</a>
                         <?php else: ?>
-                            <a href="/iniciarSesion">Iniciar Sesión</a>
+                            <a href="/login">Iniciar Sesión</a>
                         <?php endif; ?>
                     </nav>
                     <!-- cierra el div barra -->

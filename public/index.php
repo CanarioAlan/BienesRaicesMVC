@@ -5,6 +5,7 @@
 // usamos require_once para asegurarnos que solo se incluya una vez
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\LoginController;
 use MVC\Router;
 //importamos los controladores que usaremos
 use Controllers\PropiedadController;
@@ -35,9 +36,12 @@ $router->get('/anuncio', [PaginasController::class, 'anuncio']);
 $router->get('/blog', [PaginasController::class, 'blog']);
 $router->get('/entrada', [PaginasController::class, 'entrada']);
 $router->get('/contacto', [PaginasController::class, 'contacto']);
-$router->get('/iniciarSesion', [PaginasController::class, 'iniciarSesion']);
 $router->post('/contacto', [PaginasController::class, 'contacto']);
-$router->post('/iniciarSesion', [PaginasController::class, 'iniciarSesion']);
+
+//login y autenticacion
+$router->get("/logout", [LoginController::class, 'logout']);
+$router->get("/login",  [LoginController::class, 'login']);
+$router->post("/login", [LoginController::class, 'login']);
 
 //definimos las rutas de la aplicacion
 $router->comprobarRutas();
