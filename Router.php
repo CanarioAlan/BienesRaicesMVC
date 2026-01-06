@@ -7,6 +7,7 @@ class Router
     //definimos dos arregglos para guardar las rutas GET y POST, las almacenamos de esta manera para facilitar depsues cuando usemos una funcion que toma solo arreglos como parametro
     public $rutasGET = [];
     public $rutasPOST = [];
+
     //metodo para registrar los endpoints de tipo GET
 
     public function get($url, $fn)
@@ -22,6 +23,19 @@ class Router
     //aca validaremos las rutas y los requests mettods (GET, POST, etc)
     public function comprobarRutas()
     {
+        session_start();
+        $auth = $_SESSION['login'] ?? null;
+        //arreglo de rutas protegidas
+        $rutas_protegidas =
+            [
+                '/admin',
+                '/propiedades/crear',
+                '/propiedades/actualizar',
+                '/propiedades/eliminar',
+                '/vendedores/crear',
+                '/vendedores/actualizar',
+                '/vendedores/eliminar',
+            ];
         $urlActual = $_SERVER['PATH_INFO'] ?? '/';
         $metodo = $_SERVER['REQUEST_METHOD'];
         if ($metodo === 'GET') {
@@ -30,6 +44,10 @@ class Router
         } else {
             //al ser otro metodo (POST) asignamos la funcion correspondiente a la ruta
             $fn = $this->rutasPOST[$urlActual] ?? null;
+        }
+        //protegemos la ruta de /admin - utilizando in_array le pasamos que quiere que busque y donde lo tiene q buscar
+        if (in_array($urlActual, $rutas_protegidas) && !$auth) {
+            header('location: /');
         }
         if ($fn) {
             //usamos call_user_func para llamar a la funcion que corresponde a la ruta
